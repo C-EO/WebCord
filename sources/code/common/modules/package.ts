@@ -174,9 +174,9 @@ export class PackageJSON<T extends (keyof PackageJsonProperties)[]> {
           if(typeof key !== "string")
             return "Package name '"+JSON.stringify(key)+"' is not a valid 'string'.";
           else if (typeof value !== "string")
-            return "Version of the package '"+key+"' is not of type 'string'.";
-          else if (validRange(value) === null && value !== "latest" &&
-              !/^[a-z]*:?[^/:]+\/[^/:]+/.test(value)) {
+            return "Version of the package '" + key + "' is not of type 'string'.";
+          // Check if version is semver, "latest", or some kind of `protocol:`
+          else if (validRange(value) === null && !/^(?:latest$|[a-z]+:)/.test(value)) {
             return "Version '"+value+"' of the package '"+key+"' is not of the valid format.";
           }
       }
